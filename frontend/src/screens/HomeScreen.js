@@ -48,7 +48,7 @@ const HomeScreen = () => {
           <Carousel.Caption className='carousel-caption'></Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <Container className=''>
+      <Container className='card'>
         {recipes.map((recipe) => (
           <>
             <h1>Random Recipe</h1>

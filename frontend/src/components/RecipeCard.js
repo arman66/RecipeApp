@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button, Container } from 'react-bootstrap'
 const RecipeCard = ({ recipe }) => {
   console.log('this is the props ' + recipe.recipes[0].title)
 
@@ -22,25 +22,28 @@ const RecipeCard = ({ recipe }) => {
           src={JSON.stringify(recipe.recipes[0].image).replace(/\"/g, '')}
           variant='top'
         />
-        <Card.Body>
-          <Card.Text as='div'>
-            <p>These are the ingredients</p>
-            {ingredients.map((ingredient) => (
-              <ul>
-                <li key={ingredient.id}>{ingredient.name}</li>
-              </ul>
-            ))}
-          </Card.Text>
 
-          <a
-            href={JSON.stringify(recipe.recipes[0].sourceUrl).replace(
-              /\"/g,
-              ''
-            )}
-          >
-            <Button variant='primary'>Get Recipe</Button>
-          </a>
-        </Card.Body>
+        <Container className='list'>
+          <Card.Body className='list'>
+            <Card.Text as='div'>
+              <p>These are the ingredients</p>
+              {ingredients.map((ingredient) => (
+                <ul>
+                  <li key={ingredient.id}>{ingredient.name}</li>
+                </ul>
+              ))}
+            </Card.Text>
+
+            <a
+              href={JSON.stringify(recipe.recipes[0].sourceUrl).replace(
+                /\"/g,
+                ''
+              )}
+            >
+              <Button variant='danger'>Get Recipe</Button>
+            </a>
+          </Card.Body>
+        </Container>
       </Card>
     </>
   )

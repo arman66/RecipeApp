@@ -18,9 +18,12 @@ main {
   color: #000;
 }
 
-.centered {
+ul {
+  list-style-type: none;
+}
+.list {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 @media (max-width: 900px) {
