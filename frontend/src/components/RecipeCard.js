@@ -1,25 +1,25 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import { Card, Button, Container } from 'react-bootstrap'
 const RecipeCard = ({ recipe }) => {
-  console.log('this is the props ' + recipe.recipes[0].title)
+  console.log('this is the props ' + recipe.title)
 
-  const ingredients = recipe.recipes[0].extendedIngredients
+  const ingredients = recipe.extendedIngredients
 
   console.log(
     'this is the link: ' +
-      JSON.stringify(recipe.recipes[0].sourceUrl).replace(/\"/g, '')
+      JSON.stringify(recipe.sourceUrl).replace(/\"/g, '')
   )
   return (
     <>
       <Card style={{ width: '25rem' }} className='my-3 p-3 rounded '>
         <Card.Title as='div'>
           <strong>
-            {JSON.stringify(recipe.recipes[0].title).replace(/\"/g, '')}
+            {JSON.stringify(recipe.title).replace(/\"/g, '')}
           </strong>
         </Card.Title>
         <Card.Img
-          src={JSON.stringify(recipe.recipes[0].image).replace(/\"/g, '')}
+          src={JSON.stringify(recipe.image).replace(/\"/g, '')}
           variant='top'
         />
 
@@ -35,7 +35,7 @@ const RecipeCard = ({ recipe }) => {
             </Card.Text>
 
             <a
-              href={JSON.stringify(recipe.recipes[0].sourceUrl).replace(
+              href={JSON.stringify(recipe.sourceUrl).replace(
                 /\"/g,
                 ''
               )}

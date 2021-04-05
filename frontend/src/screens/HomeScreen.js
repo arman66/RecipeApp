@@ -1,36 +1,38 @@
-import React, { useEffect, useState, Link } from 'react'
-import { Form, FormControl, Button, Image } from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import RecipeCard from '../components/RecipeCard'
+import {Route} from 'react-router-dom'
+import SearchBox from '../components/SearchBox'
 import Carousel from 'react-bootstrap/Carousel'
 import honey from '../honey.jpeg'
 import weird from '../weird.jpeg'
 import pancakes from '../pancakes.jpeg'
 import { Container } from 'react-bootstrap'
-import axios from 'axios'
+import { recipeApiRandom } from '../actions/recipeActions'
 
-const HomeScreen = () => {
-  const [recipes, setRecipes] = useState([])
+
+const HomeScreen = ({  }) => {
+
+
+  const dispatch = useDispatch()
+
+  const recipeList = useSelector((state) => state.recipeList)
+
+  const { loading, error, recipes } = recipeList
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      const { data } = await axios.get('/recipe')
-      setRecipes([data])
-    }
 
-    fetchRecipe()
-  }, [])
+    dispatch(recipeApiRandom())
+    console.log("it go to the useeffect")
+   
+
+  }, [dispatch])
+  
 
   return (
     <Container>
       <Container className='mb-4'>
-        <Form inline>
-          <FormControl
-            type='text'
-            placeholder='Search Recipe'
-            className='mr-sm-2'
-          />
-          <Button variant='outline-success'>Search</Button>
-        </Form>
+       <Route render={({history})=> <SearchBox history= {history} />}/>
       </Container>
       <Carousel fade>
         <Carousel.Item>
@@ -48,14 +50,27 @@ const HomeScreen = () => {
           <Carousel.Caption className='carousel-caption'></Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <Container className='card'>
-        {recipes.map((recipe) => (
+
+      {loading ? (
+  <h2>Loading</h2>
+):error?(
+  <h3> {error}</h3>
+):(
+  <Container className='card'>
+
+      
+        {recipes.recipes.map((recipe) => (
           <>
+            
             <h1>Random Recipe</h1>
             <RecipeCard recipe={recipe} />
           </>
         ))}
       </Container>
+)}
+
+     
+     
     </Container>
   )
 }
