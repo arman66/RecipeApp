@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import RecipeCard from '../components/RecipeCard'
 import {Route} from 'react-router-dom'
+import RecipeCard from '../components/RecipeCard'
+import Loader from '../components/Loader'
 import SearchBox from '../components/SearchBox'
 import Carousel from 'react-bootstrap/Carousel'
 import honey from '../honey.jpeg'
@@ -18,7 +19,7 @@ const HomeScreen = ({  }) => {
 
   const recipeList = useSelector((state) => state.recipeList)
 
-  const { loading, error, recipes } = recipeList
+  const { loading, error, recipes=[] } = recipeList
 
   useEffect(() => {
 
@@ -28,7 +29,7 @@ const HomeScreen = ({  }) => {
 
   }, [dispatch])
   
-
+  
   return (
     <Container>
       <Container className='mb-4'>
@@ -51,24 +52,25 @@ const HomeScreen = ({  }) => {
         </Carousel.Item>
       </Carousel>
 
-      {loading ? (
-  <h2>Loading</h2>
+      {loading  || recipes.recipes=== undefined ? (
+ <Loader/>
 ):error?(
   <h3> {error}</h3>
 ):(
   <Container className='card'>
 
-      
+        
         {recipes.recipes.map((recipe) => (
           <>
-            
             <h1>Random Recipe</h1>
             <RecipeCard recipe={recipe} />
           </>
         ))}
       </Container>
 )}
-
+             
+   
+  
      
      
     </Container>

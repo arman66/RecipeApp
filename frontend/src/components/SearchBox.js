@@ -8,12 +8,15 @@ const SearchBox = ({history}) => {
         e.preventDefault()
         if(keyword.trim()){
             history.push(`/search/${keyword}`)
+        }else {
+          history.push('/')
         }
     }
     return (
         <Form onSubmit={submitHandler} inline>
           <FormControl
             type='text'
+            name ='q'
             placeholder='Search Recipe'
             className='mr-sm-2'
             onChange={(e)=> setKeyword(e.target.value)}
