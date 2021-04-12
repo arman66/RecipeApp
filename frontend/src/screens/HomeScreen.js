@@ -9,25 +9,32 @@ import honey from '../honey.jpeg'
 import weird from '../weird.jpeg'
 import pancakes from '../pancakes.jpeg'
 import { Container } from 'react-bootstrap'
-import { recipeApiRandom } from '../actions/recipeActions'
+import { recipeApiRandom, recipeApiSearch } from '../actions/recipeActions'
 
 
-const HomeScreen = ({  }) => {
+const HomeScreen = ({ match}) => {
 
+  const keyword = match.params.keyword
 
   const dispatch = useDispatch()
 
   const recipeList = useSelector((state) => state.recipeList)
+  const recipeSearch = useSelector((state) => state.recipeSearch)
+
+  // const {searched}= recipeSearch
 
   const { loading, error, recipes=[] } = recipeList
 
   useEffect(() => {
 
     dispatch(recipeApiRandom())
-    console.log("it go to the useeffect")
+
+    dispatch(recipeApiSearch(keyword))
+
+    console.log("this is the keyword "+ keyword)
    
 
-  }, [dispatch])
+  }, [dispatch, keyword])
   
   
   return (
