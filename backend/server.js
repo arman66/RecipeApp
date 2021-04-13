@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 const app = express()
 
-const APIKEY = '37fab99e028f4939966406cf0b08ff4d'
+
 
 app.use(express.json())
 
