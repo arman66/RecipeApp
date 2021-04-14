@@ -23,10 +23,11 @@ const RecipeCard = ({ recipe }) => {
           variant='top'
         />
 
-        <Container className='list'>
-          <Card.Body className='list'>
-            <Card.Text as='div'>
-              <p>These are the ingredients</p>
+        <Container>
+          <Card.Body>
+          <p>These are the ingredients</p>
+            <Card.Text as='div' className="list">
+             
               {ingredients.map((ingredient) => (
                 <ul>
                   <li key={ingredient.id}>{ingredient.name}</li>

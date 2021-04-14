@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {RECIPE_RANDOM_FAIL, RECIPE_RANDOM_SUCCESS,RECIPE_RANDOM_REQUEST, RECIPE_SEARCH_SUCCESS,RECIPE_SEARCH_FAIL,RECIPE_SEARCH_REQUEST} from '../constants/recipeConstants'
+import {RECIPE_RANDOM_FAIL, RECIPE_RANDOM_SUCCESS,RECIPE_RANDOM_REQUEST, RECIPE_SEARCH_SUCCESS,RECIPE_SEARCH_FAIL,RECIPE_SEARCH_REQUEST, RECIPE_SEARCH_RESET} from '../constants/recipeConstants'
 
 const APIKEY= '37fab99e028f4939966406cf0b08ff4d'
 
@@ -32,12 +32,15 @@ export const recipeApiSearch=(keyword='')=>async (dispatch)=>{
 
 try {
 
-    console.log('recipeapiSearch fired')
+    
+    
+        dispatch({type: RECIPE_SEARCH_RESET})
         dispatch({type: RECIPE_SEARCH_REQUEST})
 
         
 
-        const {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${keyword}&number=1&apiKey=${APIKEY}`)
+        const {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${keyword}&number=1&addRecipeInformation=true&apiKey=${APIKEY}`)
+
 
         
 
@@ -45,6 +48,8 @@ try {
             type: RECIPE_SEARCH_SUCCESS,
             payload: data
         })
+
+       
     } catch (error) {
         dispatch({type: RECIPE_SEARCH_FAIL,
         paylod: error.response})

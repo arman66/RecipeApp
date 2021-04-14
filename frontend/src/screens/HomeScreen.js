@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Route} from 'react-router-dom'
 import RecipeCard from '../components/RecipeCard'
+import SearchCard from '../components/SearchCard'
 import Loader from '../components/Loader'
 import SearchBox from '../components/SearchBox'
 import Carousel from 'react-bootstrap/Carousel'
@@ -24,19 +25,18 @@ const HomeScreen = ({ match}) => {
   // const {searched}= recipeSearch
 
   const { loading, error, recipes=[] } = recipeList
+  const { loaded, errors, searched=[] } = recipeSearch
+  
 
   useEffect(() => {
 
     dispatch(recipeApiRandom())
-
     dispatch(recipeApiSearch(keyword))
-
-    console.log("this is the keyword "+ keyword)
-   
 
   }, [dispatch, keyword])
   
   
+
   return (
     <Container>
       <Container className='mb-4'>
@@ -58,7 +58,8 @@ const HomeScreen = ({ match}) => {
           <Carousel.Caption className='carousel-caption'></Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-
+<Container className="recipe">
+ 
       {loading  || recipes.recipes=== undefined ? (
  <Loader/>
 ):error?(
@@ -75,11 +76,27 @@ const HomeScreen = ({ match}) => {
         ))}
       </Container>
 )}
+
+    {loaded || searched.results=== undefined? (
+ <Loader/>
+):errors?(
+  <h3> {errors}</h3>
+):(
+  <Container className='card'>
+
+        
+
+{searched.results.map((result)=>(
+  <>
+<h1>Searched Recipe</h1>
+            <SearchCard result={result} />
+  </>
+))}
+      </Container>
+)}
              
-   
-  
-     
-     
+            
+    </Container>
     </Container>
   )
 }
